@@ -10,15 +10,14 @@ require 'db_connection.php';
 $data = json_decode(file_get_contents("php://input"));
 if(isset($data->id) && is_numeric($data->id)){
     $delID = $data->id;
-    $deleteUser = mysqli_query($db_conn,"DELETE FROM `users` WHERE `id`='$delID'");
-    if($deleteUser){
-        echo json_encode(["success"=>1,"msg"=>"User Deleted"]);
+    $deleteProduct = mysqli_query($db_conn,"DELETE FROM productos WHERE id='$delID'");
+    if($deleteProduct){
+        echo json_encode(["success"=>1,"msg"=>"Producto Eliminado"]);
     }
     else{
-        echo json_encode(["success"=>0,"msg"=>"User Not Found!"]);
+        echo json_encode(["success"=>0,"msg"=>"¡Producto no encontrado!"]);
     }
 }
 else{
-    echo json_encode(["success"=>0,"msg"=>"User Not Found!"]);
+    echo json_encode(["success"=>0,"msg"=>"¡Producto no encontrado!"]);
 }
-?>
