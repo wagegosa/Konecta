@@ -8,7 +8,7 @@ class App extends Actions {
   render(){
     const contextValue = {
         all_products:this.state.products,
-        get_products:this.fetchProducts,
+        get_products:this.fetchProdducts,
         editMode:this.editMode,
         cancelEdit:this.cancelEdit,
         handleUpdate:this.handleUpdate,
