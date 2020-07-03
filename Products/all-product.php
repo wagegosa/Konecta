@@ -7,10 +7,10 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 require 'db_connection.php';
 
-$allProcts = mysqli_query($db_conn,"SELECT NombreProducto, Referencia, precio, Peso, Categoria, Stock, FechaCreacion FROM productos");
+$allProcts = mysqli_query($db_conn,"SELECT * FROM inventario.productos ORDER BY 1");
 if(mysqli_num_rows($allProcts) > 0){
-    $all_Products = mysqli_fetch_all($allProcts,MYSQLI_ASSOC);
-    echo json_encode(["success"=>1,"msg"=>"Productos almacenado.","id"=>$last_id]);
+    $all_products = mysqli_fetch_all($allProcts,MYSQLI_ASSOC);
+    echo json_encode(["success"=>1,"msg"=>"Productos almacenado.","id"=>$all_products]);
 }
 else{
     echo json_encode(["success"=>0]);
