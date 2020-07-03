@@ -20,7 +20,7 @@ class App extends Actions {
         <div className="container-fluid bg-light">
               <div className="container p-5">
                   <div className="card shadow-sm">
-                      <h1 className="card-header text-center text-uppercase text-muted">React PHP CRUD Application</h1>
+                      <h2 className="card-header text-center text-uppercase text-muted">Inventario</h2>
                       <div className="card-body">
                           <div className="row">
                               <div className="col-md-12">
@@ -29,7 +29,7 @@ class App extends Actions {
                           </div>
                           <h1>Productos</h1>
                           <div className="row">
-                              <div className="col-md-12">
+                              <div className="col-md-12 table-responsive">
                                 <AllProducts/>
                               </div>
                           </div>
