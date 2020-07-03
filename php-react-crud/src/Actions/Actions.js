@@ -7,40 +7,31 @@ class Actions extends React.Component {
 	//Obtener productos
 	fetchProdducts = () => {
 		Axios.get('http://localhost/Konecta/Products/all-product.php')
-			//Axios.get('http://localhost/php-react/all-users.php')
-			.then(({ data }) => {
-				if (data.success === 1) {
-					this.setState({
-						products: data.products.reverse()
-					});
-				}
-			})
-			.catch(error => {
-				console.log(error);
-			})
+		.then(({data}) => {
+			if(data.success === 1){
+				this.setState({
+					products:data.id.reverse()
+				});
+			}
+		})
+		.catch(error => {
+			console.log(error);
+		})
 	}
 	//Modo de edición
-	editMode = (ID) => {
+	editMode = (id) => {
 		let products = this.state.products.map(product => {
-			if (product.ID === ID) {
-				product.isEditing = true;
-				return product;
-			}
-			product.isEditing = false;
+			product.isEditing = product.ID === id;
 			return product;
 		});
-		console.log(products);
 		this.setState({
 			products
 		});
 	}
 	//Cancelar modo de edición
-	cancelEdit = (ID) => {
+	cancelEdit = (id) => {
 		let products = this.state.products.map(product => {
-			if (product.ID === ID) {
-				product.isEditing = false;
-				return product;
-			}
+			product.isEditing = false;
 			return product
 		});
 		this.setState({
@@ -48,10 +39,10 @@ class Actions extends React.Component {
 		});
 	}
 	//Actualizar productos
-	handleUpdate = (ID, NombreProducto, Referencia, precio, Peso, Categoria, Stock, FechaCreacion) => {
-		Axios.post('http://localhost/Konecta/Products/add-product.php',
+	handleUpdate = (id, NombreProducto, Referencia, precio, Peso, Categoria, Stock, FechaCreacion) => {
+		Axios.post('http://localhost/Konecta/Products/update-product.php',
 			{
-				ID: ID,
+				id: id,
 				NombreProducto: NombreProducto,
 				Referencia: Referencia,
 				precio: precio,
@@ -63,7 +54,8 @@ class Actions extends React.Component {
 			.then(({ data }) => {
 				if (data.success === 1) {
 					let products = this.state.products.map(product => {
-						if (product.ID === ID) {
+						if (product.id === id || product.ID === id) {
+						//if (product.id === id || product.ID === id) {
 							product.NombreProducto = NombreProducto;
 							product.Referencia = Referencia;
 							product.precio = precio;
@@ -71,6 +63,7 @@ class Actions extends React.Component {
 							product.Categoria = Categoria;
 							product.Stock = Stock;
 							product.FechaCreacion = FechaCreacion;
+							product.isEditing = false;
 							return product;
 						}
 						return product;
@@ -87,12 +80,12 @@ class Actions extends React.Component {
 			})
 	}
 	//Eliminar producto
-	handleDelete = (ID) => {
+	handleDelete = (id) => {
 		let deleteProduct = this.state.products.filter(product => {
-			return product.ID !== ID;
+			return product.id !== id;
 		});
 		Axios.post('http://localhost/Konecta/Products/delete-product.php', {
-			ID: ID
+			id: id
 		})
 			.then(({ data }) => {
 				if (data.success === 1) {
